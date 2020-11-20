@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-
+import Library from "./components/library";
 //import styles
 import "./styles/app.scss";
 
@@ -14,6 +14,7 @@ const App = () =>{
     const [isPlaying,setIsPlaying] = useState(false);
     return (
       <div className="music-player">
+          <Library allSongs={songs} />
           <Song currentSong={currSong}/>
           <Player isPlaying={isPlaying} setIsPlaying={setIsPlaying} currentSong={currSong} />
       </div>
