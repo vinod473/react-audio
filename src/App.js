@@ -14,7 +14,7 @@ const App = () =>{
     const [isPlaying,setIsPlaying] = useState(false);
     return (
       <div className="music-player">
-          <Library allSongs={songs} />
+          <Library allSongs={songs} setCurrSong={setCurrSong} />
           <Song currentSong={currSong}/>
           <Player isPlaying={isPlaying} setIsPlaying={setIsPlaying} currentSong={currSong} />
       </div>

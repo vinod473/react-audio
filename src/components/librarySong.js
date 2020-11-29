@@ -1,8 +1,8 @@
 import React from "react";
 
-const LibrarySong = ({song}) => {
+const LibrarySong = ({song,setCurrSong}) => {
     const selectSongHandler = () => {
-        
+        setCurrSong(song);
     }
     return (
         <div onClick={selectSongHandler} className="library-song">
