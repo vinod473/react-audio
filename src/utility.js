@@ -9,7 +9,7 @@ const chillHop = () => {
             artist: "Aviino",
             audio: "https://mp3.chillhop.com/serve.php/?mp3=10454",
             id: uuidv4(),
-            active: false
+            active: true
         },
         {
             name : "Reflection",
