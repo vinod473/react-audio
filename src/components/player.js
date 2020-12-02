@@ -28,7 +28,7 @@ const Player = ({audioRef, isPlaying, setIsPlaying,songInfo,setSongInfo}) => {
             <div className="time-control">
                 <p>{formatTime(songInfo.currentTime)}</p>
                 <input min="0" max={songInfo.duration} onChange={dragHandler} value={songInfo.currentTime} type="range"/>  
-                <p>{formatTime(songInfo.duration)}</p> 
+                <p>{formatTime(songInfo.duration||0)}</p> 
             </div> 
             <div className="player-control">
                 <FontAwesomeIcon size="2x" icon={faForward} />

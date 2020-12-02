@@ -7,6 +7,8 @@
   box-shadow: 2px 2px 50px rgb(204, 204, 204);
   cursor: pointer;
   overflow: scroll;
+  transform: translateX(-100%);
+  transition: all 0.3s ease;
   p {
     display: flex;
     font-size: 1.5rem;
@@ -53,4 +55,8 @@
 }
 .selected {
   background-color: rgb(211, 210, 248);
+}
+.active-status {
+  transform: translateX(0%);
+  opacity: 1;
 }
