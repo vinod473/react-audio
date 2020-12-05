@@ -33,7 +33,7 @@ const App = () =>{
             setLibraryStatus={setLibraryStatus}
           />
           <Library 
-            allSongs={songs} 
+            songs={songs} 
             setCurrSong={setCurrSong} 
             setSongs={setSongs} 
             audioRef={audioRef}
@@ -51,6 +51,10 @@ const App = () =>{
             setSongInfo={setSongInfo} 
             songInfo={songInfo} 
             libraryStatus={libraryStatus}
+            songs = {songs}
+            setCurrSong = {setCurrSong}
+            currSong = {currSong}
+            setSongs = {setSongs}
           />
           <audio onTimeUpdate={timeUpdateHandler} ref={audioRef} src={currSong.audio}></audio>
       </div>

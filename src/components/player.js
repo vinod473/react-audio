@@ -2,7 +2,7 @@ import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faPlayCircle,faForward,faBackward,faPauseCircle} from "@fortawesome/free-solid-svg-icons";
 
-const Player = ({audioRef, isPlaying, setIsPlaying,songInfo,setSongInfo}) => {
+const Player = ({audioRef, isPlaying, setIsPlaying,songInfo,songs,setSongInfo,setCurrSong,currSong,setSongs}) => {
     
     const playSongHandler = () => {
         if(isPlaying){
@@ -23,6 +23,34 @@ const Player = ({audioRef, isPlaying, setIsPlaying,songInfo,setSongInfo}) => {
         audioRef.current.currentTime = e.target.value;
         setSongInfo({...songInfo, currentTime:e.target.value});
     };
+    const changeSongHandler = (type) => {
+        const currIndex = songs.findIndex((song) => song.id === currSong.id );
+        let currId = currIndex.id;
+        if(currIndex !== 0 && type === "backward"){
+            setCurrSong(songs[currIndex-1]);
+            currId = songs[currIndex-1].id;
+        }
+        else if(type === "forward"){
+            setCurrSong(songs[(currIndex+1)%songs.length]);
+            currId = songs[(currIndex+1)%songs.length].id;
+        }
+        // change Active value 
+        const newSongs = songs.map( (eachSong) => {
+            if(eachSong.id === currId ){
+                return {
+                    ...eachSong,
+                    active : true,
+                }
+            }
+            else{
+                return {
+                    ...eachSong,
+                    active : false,
+                }
+            }
+        })
+        setSongs(newSongs);
+    }
     return (
         <div className="player-container">
             <div className="time-control">
@@ -31,9 +59,9 @@ const Player = ({audioRef, isPlaying, setIsPlaying,songInfo,setSongInfo}) => {
                 <p>{formatTime(songInfo.duration||0)}</p> 
             </div> 
             <div className="player-control">
-                <FontAwesomeIcon size="2x" icon={faForward} />
+                <FontAwesomeIcon onClick={() => changeSongHandler("backward") }size="2x" icon={faBackward} />
                 <FontAwesomeIcon onClick={playSongHandler} size="3x" icon={isPlaying? faPauseCircle : faPlayCircle} />
-                <FontAwesomeIcon size="2x" icon={faBackward} />
+                <FontAwesomeIcon size="2x" onClick={() => changeSongHandler("forward")} icon={faForward} />
             </div>
         </div>
     )
