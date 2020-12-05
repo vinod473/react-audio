@@ -1,4 +1,5 @@
 import React from "react";
+import {playSong} from "../util";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faPlayCircle,faForward,faBackward,faPauseCircle} from "@fortawesome/free-solid-svg-icons";
 
@@ -24,16 +25,19 @@ const Player = ({audioRef, isPlaying, setIsPlaying,songInfo,songs,setSongInfo,se
         setSongInfo({...songInfo, currentTime:e.target.value});
     };
     const changeSongHandler = (type) => {
-        const currIndex = songs.findIndex((song) => song.id === currSong.id );
-        let currId = currIndex.id;
+        const index = songs.findIndex((song) => song.id === currSong.id );
+        let currIndex = index;
+        let currId = index.id;
         if(currIndex !== 0 && type === "backward"){
-            setCurrSong(songs[currIndex-1]);
-            currId = songs[currIndex-1].id;
+            currIndex = index-1;
+            currId = songs[currIndex].id;
         }
         else if(type === "forward"){
-            setCurrSong(songs[(currIndex+1)%songs.length]);
-            currId = songs[(currIndex+1)%songs.length].id;
+            currIndex = index+1;
+            currId = songs[(currIndex)%songs.length].id;
         }
+        //play selected song
+        playSong(audioRef,isPlaying);
         // change Active value 
         const newSongs = songs.map( (eachSong) => {
             if(eachSong.id === currId ){
@@ -50,6 +54,7 @@ const Player = ({audioRef, isPlaying, setIsPlaying,songInfo,songs,setSongInfo,se
             }
         })
         setSongs(newSongs);
+        setCurrSong(songs[currIndex]);
     }
     return (
         <div className="player-container">
